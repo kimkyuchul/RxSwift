@@ -6,8 +6,8 @@ target 'MasteringRxSwift' do
   use_frameworks!
 
   # Pods for MasteringRxSwift
-  pod 'RxSwift', '6.5.0'
-  pod 'RxCocoa', '6.5.0'
+  pod 'RxSwift', '~> 5.0.0'
+  pod 'RxCocoa'
 
   # RxSwift Community Projects
   pod 'NSObject+Rx'
