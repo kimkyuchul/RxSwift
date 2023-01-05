@@ -27,7 +27,7 @@ import RxSwift
 /*:
  # Infallible
  */
-
+//에러 이벤트가 방출되지 않는 옵저버블
 enum MyError: Error {
     case unknown
 }
@@ -39,6 +39,19 @@ let observable = Observable<String>.create { observer in
     //observer.onError(MyError.unknown)
     
     observer.onCompleted()
+    
+    return Disposables.create()
+}
+
+// next와 completed만 방출하고 에러는 방출하지 않음
+// Infallible은 리소스를 공유하지 않음
+// 나중에 스케줄러 공부할 때 확인하기
+let infallible = Infallible<String>.create { observer in
+    
+    //observer.onNext("Hello")
+    observer(.next("hello"))
+    
+    observer(.completed)
     
     return Disposables.create()
 }
