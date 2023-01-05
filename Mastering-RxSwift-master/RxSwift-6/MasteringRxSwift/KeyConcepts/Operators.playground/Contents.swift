@@ -28,15 +28,23 @@ import RxSwift
 /*:
  # Operators
  */
+//ObservableType과Observable 클래스에는 복잡한 논리를 구현하기 위해 많은 메서드가 포함되어 있다. 이 메서드들을 Operator라고 부른다
+
 
 let bag = DisposeBag()
 
+// 연산자는 보통 subscribe 메소드 앞에 위치
+// 그래야 subscribe애서 우리가 원하는 최종 값 방출 가능
 Observable.from([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    .take(5) // 처음 5개의 요소만 전달
+    .filter { $0.isMultiple(of: 2) } // 짝수만 구독자로 전달
     .subscribe { print($0) }
     .disposed(by: bag)
 
 
-
+// 연산자는 새로운 옵저버블을 리턴하기 때문에,
+// 두 개이상의 연산자를 연달아 호출 할 수 있다
+// 하지만 호출 순서에 따라다른 결과가 나오기 때문에 호출 순서에 주의
 
 
 

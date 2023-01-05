@@ -77,8 +77,6 @@ DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
 // 이러한 이유러 dispose로 리소스를 해지하는 것은 피하는 것이 좋다.
 
 
-
-
 //이 경우 Disposed 출력문이 없지만, 리소스가 해지됨. Completed거나 Error면 자동으로 해지됨.
 Observable.from([1, 2, 3])
     .subscribe {
