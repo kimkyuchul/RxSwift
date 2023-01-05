@@ -27,9 +27,27 @@ let disposeBag = DisposeBag()
 
 Observable.just("Hello Rxswift")
     .subscribe { print($0) }
-    .disposed(by: disposeBag )
+    .disposed(by: disposeBag)
 
 
+// a가 값을 바꾸고 실행해도 a + b값은 바뀌지 않는다. 만약 a와 b의 값이 바뀔 때마다 계산을 다시 실행해야 한다면?
+// 명령형 코드에서는 복잡해진다.
+    var a = 1
+    var b = 2
+    a + b
+
+    a = 12
+
+// Rxswift는 값이나 상태에 따라서 값이 바뀌는 프로그래밍을 쉽게 할 수 있다. => 반응형 프로그래밍
+
+let aa = BehaviorSubject(value: 1)
+let bb = BehaviorSubject(value: 2)
+
+Observable.combineLatest(aa, bb) { $0 + $1 }
+    .subscribe(onNext: { print($0) })
+    .disposed(by: disposeBag)
+    
+aa.onNext(12)
 
 
 
