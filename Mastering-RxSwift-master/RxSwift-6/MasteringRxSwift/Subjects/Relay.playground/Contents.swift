@@ -52,6 +52,14 @@ print(brelay.value)
 // behavior안의 value는 읽기 전용이고 수정은 불가능하다.
 // 바꾸고싶다면, accept이벤트를 통해 새로운 이벤트를 전달해야 한다.
 
+// ReplaySubject와 동일하게  bufferSize개의 이벤트를 저장해 subscribe 될 때 저장된 이벤트를 모두 방출
+let rrelay = ReplayRelay<Int>.create(bufferSize: 3)
+
+(1...10).forEach{ rrelay.accept($0)}
+
+rrelay.subscribe { print("3: \($0)") }
+    .disposed(by: bag)
+
 
 
 
