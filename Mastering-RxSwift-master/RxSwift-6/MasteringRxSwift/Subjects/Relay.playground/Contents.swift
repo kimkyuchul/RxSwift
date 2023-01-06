@@ -31,6 +31,28 @@ import RxCocoa
 
 let bag = DisposeBag()
 
+// Relay는 RxCocoa 프레임워크를 통해 제공
+
+let prelay = PublishRelay<Int>() // / 빈생성자로 생성하는것은 퍼블리쉬서브젝트와 동일
+prelay.subscribe { print("1: \($0)") }
+    .disposed(by: bag)
+
+prelay.accept(1)
+
+let brelay = BehaviorRelay(value: 1)
+brelay.accept(2)
+
+brelay.subscribe {
+    print("2: \($0)")
+}
+.disposed(by: bag)
+
+brelay.accept(3)
+print(brelay.value)
+// behavior안의 value는 읽기 전용이고 수정은 불가능하다.
+// 바꾸고싶다면, accept이벤트를 통해 새로운 이벤트를 전달해야 한다.
+
+
 
 
 
