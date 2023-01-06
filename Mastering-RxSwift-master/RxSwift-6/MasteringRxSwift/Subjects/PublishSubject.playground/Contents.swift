@@ -47,7 +47,7 @@ let o1 = subject.subscribe { print(">> 1", $0) }
 o1.disposed(by: disposeBag)
 
 // PublishSubject는 구독 이후에 전달되는 새로운 이벤트만 구독자로 전달
-// 그래서 구독자가 구독을 하기 전에 전달되었던 넥스트 이벤트(hello)는 o1 옵저버로 전달되지 않는다.
+// 그래서 구독자가 구독을 하기 전에 전달되었던 넥스트 이벤트(hello)는 o1 옵저버로 전달 되지 않는다.
 subject.onNext("RxSwift")
 
 let o2 = subject.subscribe { print(">> 2", $0) }
