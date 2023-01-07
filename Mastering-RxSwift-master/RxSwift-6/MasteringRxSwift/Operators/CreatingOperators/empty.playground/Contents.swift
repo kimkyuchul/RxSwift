@@ -24,10 +24,18 @@
 import UIKit
 import RxSwift
 
+
 /*:
  # empty
  */
 
 let disposeBag = DisposeBag()
+
+// 요소를 방출하지 않음
+// 옵저버가 아무런 동작 없이 종료되어야 할 때 사용
+// 즉시 종료할 수 있는 Observable을 리턴하고 싶을 때 사용
+Observable<Void>.empty()
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
 
 
