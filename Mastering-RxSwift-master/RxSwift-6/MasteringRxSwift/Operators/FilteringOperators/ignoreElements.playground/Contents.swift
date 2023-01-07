@@ -31,5 +31,11 @@ import RxSwift
 let disposeBag = DisposeBag()
 let fruits = ["🍏", "🍎", "🍋", "🍓", "🍇"]
 
+//넥스트 이벤트를 필터링하고, completed랑 error이벤트만 전달한다.
+//작업의 성공과 실패에만 관심이 있을 때 사용된다.
 
+Observable.from(fruits)
+    .ignoreElements()
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
 
