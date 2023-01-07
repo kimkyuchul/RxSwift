@@ -31,5 +31,19 @@ import RxSwift
 let disposeBag = DisposeBag()
 let element = "😀"
 
+// 하나의 항목을 방출하는 옵저버블을 생성
+// 옵저버블타입 프로토콜의 타입 메소드로 선언 되어 있음. 파라미터로 하나의 요소를 받아서 옵저버블을 리턴함.
+Observable.just(element) // 파라미터로 전달하면 여기에 저장된 문자열을 방출하는 옵저버블이 생성
+    //.subscribe { event in print(event) }
+    .subscribe { print($0) }
+    .disposed(by: disposeBag)
 
+Observable.just([1, 2, 3])
+    .subscribe(onNext: {
+        print($0)
+    })
+    .disposed(by: disposeBag)
+
+// from과 헷갈리면 안댐
+// just로 생성된 옵저버블은 파라미터로 생성된 요소를 그대로 방출한다.
 
