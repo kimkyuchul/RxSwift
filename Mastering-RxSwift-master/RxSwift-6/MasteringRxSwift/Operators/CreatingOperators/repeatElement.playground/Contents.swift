@@ -31,4 +31,11 @@ import RxSwift
 let disposeBag = DisposeBag()
 let element = "❤️"
 
+// 동일한 요소를 반복적으로 방출하는 옵저버블
+let rs = Observable.repeatElement(element)
+
+rs
+    .take(7) //무한대로 실행되는데 7개까지만 실행되게 해줌.
+    .subscribe { print($0) }
+    .disposed(by: disposeBag)
 
