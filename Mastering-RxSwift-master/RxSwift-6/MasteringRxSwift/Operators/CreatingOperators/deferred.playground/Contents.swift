@@ -33,6 +33,31 @@ let animals = ["🐶", "🐱", "🐹", "🐰", "🦊", "🐻", "🐯"]
 let fruits = ["🍎", "🍐", "🍋", "🍇", "🍈", "🍓", "🍑"]
 var flag = true
 
+// 특정 조건에 따라 옵저버블 생성이 가능
+
+let factory: Observable<String> = Observable.deferred {
+    flag.toggle() //flag 뒤집기 코드 (true -> false로 바뀜)
+    
+    if flag {
+        return Observable.from(animals)
+    } else {
+        return Observable.from(fruits)
+    }
+}
+
+factory
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
+
+factory
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
+
+
+
+
+
+
 
 
 
