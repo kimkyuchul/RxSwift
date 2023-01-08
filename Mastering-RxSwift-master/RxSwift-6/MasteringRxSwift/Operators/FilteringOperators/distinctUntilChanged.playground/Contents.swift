@@ -42,7 +42,32 @@ let persons = [
     Person(name: "Tim", age: 56)
 ]
 
+// 동일한 항목이 연속적으로 방출되지 않도록 필터링 해줌
+// 이전과 똑같은 이벤트라면 방출하지 않음
 
+Observable.from(numbers)
+    // 이벤트를 비교하는 코드를 직접 구현하고 싶다면 클로저 사용
+    .distinctUntilChanged{ !$0.isMultiple(of: 2) && !$1.isMultiple(of: 2) } // 값이 홀수면 그냥 같은 값으로 판단 -> 실행결과를 보면 연속된 홀수를 방출하지 않음
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
+
+Observable.from(tuples)
+// key
+    //.distinctUntilChanged { $0.0 } // 저장된 값 중 첫번째 값이 리턴
+    .distinctUntilChanged { $0.1 } // 튜플에서 두번째 값은 모두 다른 값 -> 모든 이벤트를 구독자에게 전달
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
+
+
+// keypath를 활용해서 나이를 기준으로 이벤트를 비교
+Observable.from(persons)
+    .distinctUntilChanged(at: \.age) // 같은 나이(paul) 는 전달되지 않음
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
+
+
+
+    
 
 
 
