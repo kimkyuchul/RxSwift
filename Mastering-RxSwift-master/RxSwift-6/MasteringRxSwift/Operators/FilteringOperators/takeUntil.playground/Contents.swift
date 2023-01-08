@@ -30,6 +30,32 @@ import RxSwift
 
 let disposeBag = DisposeBag()
 
+let subject = PublishSubject<Int>()
+let trigger = PublishSubject<Int>()
+
+subject.take(until: trigger) // 파라미터로 옵저버블을 받음
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
+
+subject.onNext(1) // 트리거가 넥스트 이벤트를 방출하지 않았기 때문에 잘 방출됨
+subject.onNext(1) // 마찬가지
+
+trigger.onNext(0) // 트리거에서 요소를 방출하면 컴플리티드 이벤트가 전달됨
+
+subject.onNext(3)
+
+//Rxswift6
+
+let ssubject = PublishSubject<Int>()
+
+// 클로저를 파라미터로 받는 take(until)은 true를 방출하면 옵저버블을 종료
+ssubject.take(until: { $0 > 5 })
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
+
+ssubject.onNext(1)
+ssubject.onNext(1)
+ssubject.onNext(6)
 
 
 

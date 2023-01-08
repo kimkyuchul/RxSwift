@@ -29,8 +29,31 @@ import RxSwift
  */
 
 let disposeBag = DisposeBag()
+let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
+//정수를 파라미터로 받아서 옵저버블을 리턴한다.
+//구독자로 전달되는 시점이 딜레이된다는 것
 
+let subject = PublishSubject<Int>()
+
+subject.takeLast(2)
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
+
+numbers.forEach { subject.onNext($0) } // 9,10이 버퍼에 저장
+
+subject.onNext(11) // 10, 11로 업데이트
+
+//요소를 방출시키는 시점을 지연시킨다.
+
+// subject.onCompleted()
+
+enum MyError: Error {
+   case error
+}
+
+subject.onError(MyError.error)
+ 
 
 
 

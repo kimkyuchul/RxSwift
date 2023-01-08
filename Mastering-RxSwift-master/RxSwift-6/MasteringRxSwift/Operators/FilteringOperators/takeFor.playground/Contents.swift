@@ -33,7 +33,8 @@ let disposeBag = DisposeBag()
 
 let o = Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
 
-o.subscribe { print($0) }
+o.take(for: .seconds(3) , scheduler: MainScheduler.instance) // 시간이 경과하면 이벤트를 전달하지 않고 종료시킴
+    .subscribe { print($0) }
     .disposed(by: disposeBag)
 
-
+// 오차가 있다는 것을 생각하고 사용해야 함
