@@ -31,4 +31,16 @@ import RxSwift
 
 let disposeBag = DisposeBag()
 
+let subject = PublishSubject<Int>()
+let trigger = PublishSubject<Int>()
+
+subject.skip(until: trigger) // 파라미터로 옵저버블을 받음
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
+
+subject.onNext(1) // trigger가 요소를 방출한 적이 없기 때문에 방출한 요소는 구독자로 전달되지 않는다.
+
+trigger.onNext(0)
+
+subject.onNext(3) // trigger가 요소를 방출한 이후 부터 원본 옵저버블에서 방출한 요소들을 방출
 

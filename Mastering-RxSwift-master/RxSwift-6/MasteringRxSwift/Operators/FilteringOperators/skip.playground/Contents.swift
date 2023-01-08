@@ -32,4 +32,9 @@ let disposeBag = DisposeBag()
 let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
-
+// 처음 3개의 값은 전달되지 않음
+// 인덱스로 카운트로 사용됨! -> 4부터 출력되는 이유
+Observable.from(numbers)
+    .skip(3)
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
