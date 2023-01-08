@@ -41,13 +41,13 @@ func currentTimeString() -> String {
    return f.string(from: Date())
 }
 
-
-Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
-   .debug()
-   .take(10)
-   .throttle(.milliseconds(2500), latest: true, scheduler: MainScheduler.instance)
-   .subscribe { print(currentTimeString(), $0) }
-   .disposed(by: disposeBag)
+// interval로 1초마다 10개가 나오게 하고 동시에 throttle를 2.5초마다 요소가 방출되기 만든 상태
+//Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
+//   .debug()
+//   .take(10)
+//   .throttle(.milliseconds(2500), latest: true, scheduler: MainScheduler.instance)
+//   .subscribe { print(currentTimeString(), $0) }
+//   .disposed(by: disposeBag)
 
 
 Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
@@ -56,3 +56,9 @@ Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
    .throttle(.milliseconds(2500), latest: false, scheduler: MainScheduler.instance)
    .subscribe { print(currentTimeString(), $0) }
    .disposed(by: disposeBag)
+
+
+//latest true, false 차이.
+// true는 2.5초가 지나면 마지막 이벤트 방출 (엄격) -> 위코드 0,2,5,7,9가 방출
+// false는 2.5초가 지난 이후에 생긴 첫 이벤트 방출 (지정된 주기 초과) -> 위코드 0,3,6,9가 방출
+// https://medium.com/fantageek/throttle-vs-debounce-in-rxswift-86f8b303d5d4

@@ -31,6 +31,12 @@ import RxSwift
 
 let disposeBag = DisposeBag()
 
+// debounce, throttle. 둘 다 짧은시간동안 반복적으로 방출되는 이벤트를 제어함
+// 지정된 시간동안 새로운 이벤트가 방출 되지 않으면 가장 마지막에 전달된 이벤트를 구독자에게 전달한다.
+// 지정된 시간 이내에 넥스트 이벤트를 방출헸다면 타이머를 초기화 함
+// 타이머를 초기화 하고 다시 지정된 시간동안 대기한다 -> 이 시간 이내에 다른 이벤트가 방출되지 않는다면 마지막 이벤트를 방출하고, 이벤트가 방출된다면 타이머를 초기화 한다.
+// debounce는 이벤트가 전달된 다음 지정된 시간까지 다음 이벤트가 전달되지 않는다면 방출.
+
 let buttonTap = Observable<String>.create { observer in
    DispatchQueue.global().async {
       for i in 1...10 {
@@ -54,6 +60,12 @@ let buttonTap = Observable<String>.create { observer in
 }
 
 buttonTap
-   .subscribe { print($0) }
+    // 파라미터로 1초
+    .debounce(.milliseconds(1000), scheduler: MainScheduler.instance)
+   .subscribe { print($0) } // 10, 20
    .disposed(by: disposeBag)
+
+// 지정된 시간동안 새로운 이벤트가 방출 되지 않으면 가장 마지막에 전달된 이벤트를 구독자에게 전달
+// 위의 포문은 둘다 0.3, 0.5초마다 요소를 방출하는데 디바운스 파라미터로 1초를 지정했기 때문에 모두 방출되지 않고 마지막 파라미터인 10, 20이 방출되는 것
+// 타이머를 지정해두고 타이머가 끝난 시점에 가장 최근의 값을 방출해준다.
 
