@@ -44,8 +44,21 @@ o.scan(0, accumulator: +)
 
 print("== reduce")
 
+o.reduce(0, accumulator: +)
+    .subscribe { print($0) } // 최종 결과 하나만 방출
+    .disposed(by: bag)
 
 
+// 중간결과까지 모두 확인이 필요하다면 스캔 연산자
+// 마지막결과값만 필요하다면 리듀스 연산자 사용
 
+o.scan(0) { $0 + $1 }
+    .subscribe { print($0) }
+    .disposed(by: bag)
+
+
+o.reduce(0) { $0 + $1 }
+    .subscribe { print($0) }
+    .disposed(by: bag)
 
 
