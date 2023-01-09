@@ -37,6 +37,28 @@ enum MyError: Error {
 let trigger = PublishSubject<Void>()
 let data = PublishSubject<String>()
 
+// dataObservable.withLatestFrom(triggerObservable)
+// 연산자를 호출하는 옵저버블(dataObservable), 파라미터로 전달하는 옵저버블(triggerObservable)
+// triggerObservable가 넥스트 이벤트를 전달 할 때 마다, dataObservable이 가장 최근 이벤트를 방출
+// 이 부분은 withLatestFrom와 같음 하지만 동일한 넥스트 이벤트를 반복해서 방출하지 않는다는 차이가 있다.
+// 동일한 넥스트 이벤트를 반복해서 방출하지 않는다는 차이가 중요
+
+data.sample(trigger)
+    .subscribe { print($0) }
+    .disposed(by: bag)
+
+trigger.onNext(()) // 아직 data 서브젝트가 넥스트 이벤트를 전달하지 않았기 때문에 전달되지 않음
+data.onNext("hi") //이 때 바로 전달 안댐
+
+trigger.onNext(())
+trigger.onNext(()) //넥스트 이벤트 방출 안됨. 동일한 이벤트를 2번이상 방출안함.
+
+//data.onCompleted()
+//trigger.onNext(()) // Completed를 그대로 전달
+
+data.onError(MyError.error)
+
+
 
 
 

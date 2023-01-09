@@ -37,7 +37,26 @@ enum MyError: Error {
 let trigger = PublishSubject<Void>()
 let data = PublishSubject<String>()
 
+// triggerObservable.withLatestFrom(dataObservable)
+// 연산자를 호출하는 옵저버블(triggerObservable), 파라미터로 전달하는 옵저버블(dataObservable)
+// triggerObservable가 넥스트 이벤트를 방출하면, dataObservable이 가장 최근에 방출한 넥스트 이벤트를 구독자에게 전달
+// ex) 회원가입 버튼을 누를 때 텍스트 필드에 입력된 값들을 가져올 때 사용 할 수 있음
 
+trigger.withLatestFrom(data)
+    .subscribe { print($0) }
+    .disposed(by: bag)
+
+data.onNext("hello") // 아직 trigger 서브젝트가 넥스트 이벤트를 전달하지 않았기 때문에 전달되지 않음
+trigger.onNext(())
+trigger.onNext(()) // 트리거 옵저버블로 넥스트 이벤트가 전달되면 데이터 옵저버블에 있는 최신 넥스트 이벤트를 구독자에게 전달
+
+//data.onCompleted() // onCompleted 전달 안됨
+//data.onError(MyError.error) // error는 바로 전달
+//trigger.onNext(())
+trigger.onCompleted() // 바로 구독자에게 전달됨
+
+// 한쪽 Observable의 이벤트가 발생할 때 두개의 Observable을 병합
+// 트리거 옵저버블에서 Next 이벤트가 발생하면 데이터 옵저버블에서 발생한 가장 최근 Next이벤트가 방출
 
 
 
