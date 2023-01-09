@@ -30,6 +30,19 @@ import RxSwift
 
 let disposeBag = DisposeBag()
 
+// 특정주기 동안 옵저버블이 방출하는 항목을 수집하고, 하나의 옵저버블을 리턴
+// 리턴된 옵저버블이 무엇을 리턴하고 언제 완료되는지 중요
+
+Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
+    .window(timeSpan: .seconds(5), count: 3, scheduler: MainScheduler.instance) //옵저버블을 방출함.
+    .take(5)
+    .subscribe{ print($0)
+        if let observable = $0.element {
+            observable.subscribe{ print(" inner: ", $0)}
+        }
+    }
+    .disposed(by: disposeBag)
+
 
 
 

@@ -38,8 +38,13 @@ let redHeart = "❤️"
 let greenHeart = "💚"
 let blueHeart = "💙"
 
-Observable.from([redCircle, greenCircle, blueCircle])
-    .flatMap { circle -> Observable<String> in
+// flatMap과 다르게 방출 순서를 보장
+// 원본 옵저버블의 이벤트 방출 순서와 이너 옵저버블의 이벤트 방출 순서를 동일하다는 것을 보장
+// 한번에 하나의 이너 옵저버블만 방출
+
+
+Observable.from([greenCircle, redCircle, blueCircle])
+    .concatMap { circle -> Observable<String> in
         switch circle {
         case redCircle:
             return Observable.repeatElement(redHeart)

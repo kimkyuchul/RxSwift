@@ -31,7 +31,18 @@ import RxSwift
 let bag = DisposeBag()
 let numbers = [1, 2, 3, 4, 5]
 
+// 옵저버블 시퀀스 앞에 새로운 요소를 추가하는 startWith 연산자
+// 옵저버블이 요소를 방출하기 전에 다른항목들을 앞에 추가
+// 기본값을 추가할때 사용
 
+Observable.from(numbers)
+    .startWith(0) // 배열 맨 앞에 0이 붙음
+    .startWith(-1, -2)
+    .startWith(-3)
+    .subscribe { print($0) }
+    .disposed(by: bag)
+
+// startWith로 추가한 값은 Last in first out -> 마지막에 호출한 연산자로 전달한 값이 가장 먼저 방출
 
 
 
