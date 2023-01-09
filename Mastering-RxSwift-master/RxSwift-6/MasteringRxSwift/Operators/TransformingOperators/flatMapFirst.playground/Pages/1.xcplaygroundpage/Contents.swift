@@ -38,18 +38,20 @@ let redHeart = "❤️"
 let greenHeart = "💚"
 let blueHeart = "💙"
 
-Observable.from([redCircle, greenCircle, blueCircle])
-    .flatMap { circle -> Observable<String> in
+// 가장 먼저 방출하는 이너 옵저버블을 방출
+
+Observable.from([redCircle, greenCircle, blueCircle]) // 레드와 그린을 바꾼다면 그린이 제일 첫번째 이너 옵저버블이 됨!
+    .flatMapFirst { circle -> Observable<String> in
         switch circle {
         case redCircle:
             return Observable.repeatElement(redHeart)
-                .take(5)
+                .take(5) // 첫번째 이너 옵저버블
         case greenCircle:
             return Observable.repeatElement(greenHeart)
-                .take(5)
+                .take(5) // 두번쨰 이너 옵저버블
         case blueCircle:
             return Observable.repeatElement(blueHeart)
-                .take(5)
+                .take(5) // 세번째 이너 옵저버블
         default:
             return Observable.just("")
         }
@@ -57,6 +59,7 @@ Observable.from([redCircle, greenCircle, blueCircle])
     .subscribe { print($0) }
     .disposed(by: disposeBag)
 
+// 가장 먼저 이벤트 방출을 시작한 옵저버블만 사용 -> 빨간 하트만 방출
 
 
 //: [Next](@next)

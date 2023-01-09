@@ -64,14 +64,18 @@ sourceObservable
     .subscribe { print($0) }
     .disposed(by: disposeBag)
 
-sourceObservable.onNext(redCircle)
+sourceObservable.onNext(redCircle) // 가장 먼저 방출됨
 
 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
     sourceObservable.onNext(greenCircle)
 }
 
-DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // 3초로 바꾸면 blue가 red 다음으로 방출 -> 첫번째 주기가 끝난 다음에 방출되기 때문
     sourceObservable.onNext(blueCircle)
 }
 
+
+// 가장먼저 들어온 inner옵저버블만 사용하고 후에 들어온 옵저버블은 이벤트가 방출하지 않음
+// blueCircle을 3초 뒤에 방출로 바꿨을 때 redCircle 방출 후 blueCircle이 다음으로 방출되는 이유 -> blue, green이 둘 다 0.5초 방출일 때는 red가 방출되는 주기와 겹치기 때문에 red만 방출됨 하지만 3초로 바꾸면 red가 방출된 주기가 끝난 다음이기 때문에 바로 다음으로 blue가 출력됨
+// 주기마다 가장 먼저 이벤트를 방출하는 옵저버블을 선택하고 나머지는 무시
 
