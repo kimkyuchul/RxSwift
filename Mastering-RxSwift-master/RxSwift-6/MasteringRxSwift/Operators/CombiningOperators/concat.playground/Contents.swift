@@ -32,6 +32,26 @@ let bag = DisposeBag()
 let fruits = Observable.from(["🍏", "🍎", "🥝", "🍑", "🍋", "🍉"])
 let animals = Observable.from(["🐶", "🐱", "🐹", "🐼", "🐯", "🐵"])
 
+// //두개의 옵저버블 연결할 때 사용
+// 여러 Sequence를 순서대로 묶음
+
+Observable.concat([fruits, animals])
+    .subscribe { print($0) }
+    .disposed(by: bag)
+
+// 인스턴스 메서드로 연결된 concat
+fruits.concat(animals)
+    .subscribe { print($0) }
+    .disposed(by: bag)
+
+animals.concat(fruits)
+    .subscribe { print($0) }
+    .disposed(by: bag)
+
+// 첫 번째 Sequence가 완료될 때까지 구독하고 다음 Sequence를 같은 방법으로 구독
+// Observable.concat(_:)과 달리 .concat(_:)은 요소들이 같은 타입일 때 가능합니다.
+
+
 
 
 
