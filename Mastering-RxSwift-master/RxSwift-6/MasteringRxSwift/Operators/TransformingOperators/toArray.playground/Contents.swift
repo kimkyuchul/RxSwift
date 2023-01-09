@@ -29,5 +29,21 @@ import RxSwift
  */
 
 let disposeBag = DisposeBag()
+let numbers = [1,2,3,4,5,6,7,8,9,10]
+
+
+// 옵저버블이 방출하는 모든 요소를 배열에 담은 다음 이 배열을 방출하는 옵저버블을 생성
+
+let subject = PublishSubject<Int>()
+
+subject
+    .toArray()
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
+
+subject.onNext(1) //아직 구독자로 전달안됨. 더 전달될 가능성도 있기 때문
+subject.onNext(2)
+subject.onCompleted() // success([1, 2])
+
 
 
