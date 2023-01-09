@@ -37,6 +37,30 @@ enum MyError: Error {
 let greetings = PublishSubject<String>()
 let languages = PublishSubject<String>()
 
+// 합쳐질때 이벤트를 방출함.
+// 여러 Observable에서 가장 최신의 값을 병합하여 방출
+// 한 번 값을 방출한 이후에는 클로저가 각각의 Observable이 방출하는 최신의 값을 받음
+
+Observable.combineLatest(greetings, languages) { lhs, rhs -> String in
+    return "\(lhs) \(rhs)"
+}
+.subscribe{ print($0) }
+.disposed(by: bag)
+
+// 구독과 동시에 이벤트를 받고 싶다면 -> startWith로 초깃값을 설정하거나, BehaviorSubject를 활용 !
+greetings.onNext("HI")
+languages.onNext("world!")
+
+greetings.onNext("hello")
+languages.onNext("RxSwift")
+
+greetings.onError(MyError.error) // 바로 종료
+
+//greetings.onCompleted() // 아직 languages가 onCompleted 안되서 Completed 전달 안댐
+languages.onNext("SwiftUI")
+
+languages.onCompleted() // completed
+
 
 
 
