@@ -28,10 +28,13 @@ import RxSwift
 /*:
  # replay, replayAll
  */
-
+// 컨넥티드 옵저버에 버퍼를 추가하고, 새로운 구독자에게 최근 이벤트를 전달
+// multicast에 전달하는 파라미터 타입이 RepaySubject 라면 replay를 통해 단순화
+// replay를 활용하면 3초뒤에 방출되어 전달받지 못했던 빨간 원 0, 1 값을 버퍼에 저장해두었다가 방출해줌.
 let bag = DisposeBag()
-let subject = PublishSubject<Int>()
-let source = Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance).take(5).multicast(subject)
+// let subject = PublishSubject<Int>() 퍼블리시 서브젝트는 버퍼를 가지고 있지 않기 때문에 필요 없음
+// let subject = ReplaySubject<Int>.create(bufferSize: 5) // 빨간 원 0과 1도 받음!
+let source = Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance).take(5).replay(5) // 버퍼 크기 5
 
 source
     .subscribe { print("🔵", $0) }
@@ -44,8 +47,10 @@ source
 
 source.connect()
 
+//만약 3초 이전의 값들을 가져오고 싶다면, PublishSubject-> ReplaySubject로 바꾸면됨.
 
-
+//replayall은 메모리 제한이 없어 특별한 이유가 없다면 사용하지 않아야함.
+//버퍼크기를 제한해줄수 있는 replay는 메모리 효율을 위해 최소한으로 정하고 사용해야한다.
 
 
 

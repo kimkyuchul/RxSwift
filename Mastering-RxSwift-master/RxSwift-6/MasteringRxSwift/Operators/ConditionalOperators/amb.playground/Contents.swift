@@ -35,10 +35,25 @@ enum MyError: Error {
    case error
 }
 
+// a,b,c중에 가장 먼저 이벤트를 방출하는 것부터 방출하기 시작한다.
+// 여러 서버로 연결하고 가장 빠른 응답을 처리하는 패턴을 해결 할 수 있음
+
 let a = PublishSubject<String>()
 let b = PublishSubject<String>()
 let c = PublishSubject<String>()
 
+//a.amb(b)
+Observable.amb([a,b,c])
+    .subscribe { print($0) }
+    .disposed(by: bag)
+
+a.onNext("A") // a가 b보다 먼저 이벤트를 방출 -> 그래서 amb는 a를 구독하고 b는 무시
+b.onNext("B")
+
+b.onCompleted() // 구독자에게 전달 안됨
+a.onCompleted()
+
+// 두개 이상의 소스 옵저버블 중에서 가장 먼저 이벤트를 전달하는 옵저버를 구독하고 나머지는 무시
 
 
 
