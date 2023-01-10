@@ -46,8 +46,12 @@ let source = Observable<String>.create { observer in
     }
 }
 .debug()
+.share() // 구독자가 공유하게 된다. 첫번째 말고는 공유할 구독이 있기 때문에 실행되지 않는다.
 
-
+// 구독자가 추가되면 항상 새로운 sequence가 실행된다.
+// -> 클라이언트에서 불필요한 리소스를 낭비하게 된다.
+// 데이터베이스에 접근하거나 파일을 읽는경우도 마찬가지이다.
+// -> 모든 구독자가 하나의 구독을 공유하도록 구현해야 한다.
 source.subscribe().disposed(by: bag)
 source.subscribe().disposed(by: bag)
 source.subscribe().disposed(by: bag)
