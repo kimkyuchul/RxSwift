@@ -28,7 +28,28 @@ import RxSwift
  # interval
  */
 
+// 특정 주기마다 정수륿 방출하는 옵저버블이 필요하다면 이 연산자를 활용
 
+// double, String은 못씀
+let i = Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
+
+let subscriotion1 = i.subscribe { print("1 >> \($0)") }
+
+DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+    subscriotion1.dispose()
+}
+
+var subscription2 : Disposable?
+
+DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+    subscription2 = i.subscribe { print("2 >> \($0)") }
+}
+
+DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+    subscription2?.dispose()
+}
+
+// 새로운 구독이 추가되는 시점에 내부에 있는 타이머가 시작됨
 
 
 
