@@ -30,6 +30,17 @@ import RxSwift
 
 let bag = DisposeBag()
 
+// 지연시간과 반복주기를 모두 정할 수 있음
+// 첫번째 파라미터 -> 첫번 째 요소가 전달되는 상대적인 시간 (구독 후 1초 뒤에 전달)
+// 두번째 파라미터 -> 반복 주기
+Observable<Int>.timer(.seconds(1), period: .milliseconds(500), scheduler: MainScheduler.instance)
+    .subscribe { print($0) }
+    .disposed(by: bag)
+
+//DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//
+//}
+
 
 
 

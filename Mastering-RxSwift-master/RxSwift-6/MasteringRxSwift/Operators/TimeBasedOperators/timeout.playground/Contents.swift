@@ -33,8 +33,36 @@ let bag = DisposeBag()
 
 let subject = PublishSubject<Int>()
 
+//subject.timeout(.seconds(3), scheduler: MainScheduler.instance) //3초안에 이벤트가 전달되지 않으면 에러이벤트 발생하고 종료
+//    .subscribe { print($0) }
+//    .disposed(by: bag)
+
+subject.timeout(.seconds(3), other: Observable.just(0), scheduler: MainScheduler.instance) // 두 번째 이벤트는 other의 0이 전달한 것, 3초의 outtime이 경과하면 other : Source 를 구독자에게 전달하며 종료
+    .subscribe { print($0) }
+    .disposed(by: bag)
+
+Observable<Int>.timer(.seconds(2), period: .seconds(5), scheduler: MainScheduler.instance) // 첫번째 파라미터 5초 설정 시 타임아웃 에러, 첫 번쨰 파라미터 2, 두 번째 파라미터 5면 -> 0, 에러
+    .subscribe(onNext: { subject.onNext($0) })
+    .disposed(by: bag)
 
 
 
 
+let button = UIButton(type: .system)
+button.setTitle("눌러주세요", for: .normal)
+button.sizeToFit()
+
+// timeout.current.liveView = button
+
+button.rx.tap
+    .do(onNext: {
+        print("tapped")
+    })
+    .timeout(.seconds(5), scheduler: MainScheduler.instance)
+    .subscribe(onNext: {
+        print($0)
+    })
+    .disposed(by: bag)
+
+// 5초 동안 탭 이벤트가 없으면 에러
 
