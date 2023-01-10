@@ -36,8 +36,17 @@ func currentTimeString() -> String {
    return f.string(from: Date())
 }
 
+// delaySubscription 연산자는 구독 하는 시점을 지연시킵니다.
 
-
+Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
+    .take(10)
+    .debug()
+    .delaySubscription(.seconds(7), scheduler: MainScheduler.instance)
+    .subscribe{ print(currentTimeString(), $0) }
+    .disposed(by: bag)
+// 코드를 시작하면 7초동안 아무것도 동작하지 않음
+// 7초가 지난 뒤 코드 시작
+// 방출된 넥스트 이벤트는 지연없이 바로 전달
 
 
 

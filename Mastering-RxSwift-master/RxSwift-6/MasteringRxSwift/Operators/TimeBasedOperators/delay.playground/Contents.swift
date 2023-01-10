@@ -36,7 +36,16 @@ func currentTimeString() -> String {
    return f.string(from: Date())
 }
 
+// 넥스트 이벤트가 구독자로 전달되는 시점을 지정한 시간만큼 지연시킴
 
+Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
+    .take(10)
+    .debug()
+    .delay(.seconds(5), scheduler: MainScheduler.instance)
+    .subscribe{ print(currentTimeString(), $0) }
+    .disposed(by: bag)
+
+// 구독 시점을 연기시키진 않음, 구독자가 추가되면 바로 시퀀스가 시작된다.
 
 
 
