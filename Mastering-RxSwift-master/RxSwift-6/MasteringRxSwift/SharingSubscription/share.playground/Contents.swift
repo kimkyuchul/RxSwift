@@ -155,3 +155,4 @@ DispatchQueue.main.asyncAfter(deadline: .now() + 7) { //서브젝트는 사라�
 
 
 
+
