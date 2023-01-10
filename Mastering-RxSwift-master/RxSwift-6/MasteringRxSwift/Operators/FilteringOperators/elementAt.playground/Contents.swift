@@ -33,6 +33,6 @@ let fruits = ["🍏", "🍎", "🍋", "🍓", "🍇"]
 
 //특정 인덱스에 위치한 요소를 제한적으로 방출
 Observable.from(fruits)
-    .elementAt(1)
+    .element(at: 1)
     .subscribe{ print($0) }
     .disposed(by: disposeBag)
