@@ -40,7 +40,7 @@ let source = Observable<Int>.create { observer in
     let currentAttempts = attempts
     print("#\(currentAttempts) START")
     
-    if attempts < 3 {
+    if attempts < 5 {
         observer.onError(MyError.error)
         attempts += 1
     }
@@ -55,9 +55,14 @@ let source = Observable<Int>.create { observer in
 }
 
 source
+    .retry(7) // 인자 값을 안주면 에러가 발생 안할때 까지 반복함. 따라서 무한루프가 발생하지 않도록 주의해야한다.
+    //재시도 횟수를 넣을 땐 원하는 횟수 +1 해야 함
     .subscribe { print($0) }
     .disposed(by: bag)
 
+//네트워크 요청에서 제대로 된 값을 받지 못했을 경우, 재시도를 한다.
+//최대 값만큼 재시도를 한 경우 에러전달하고 끝냄
+//만약 사용자가 신호를 줬을때 재시도를 하고 싶을때는 retryWhen을 씀.
 
 
 

@@ -28,7 +28,7 @@ import RxSwift
  # retry(when:)
  */
 
-
+// 사용자가 신호를 줬을때 재시도를 하고 싶을때는 retryWhen을 씀.
 let bag = DisposeBag()
 
 enum MyError: Error {
@@ -58,9 +58,11 @@ let source = Observable<Int>.create { observer in
 let trigger = PublishSubject<Void>()
 
 source
+    .retry(when: { _ in trigger }) // 트리거 옵저버블이 넥스트 이벤트를 방출하기 전까지 대기
     .subscribe { print($0) }
     .disposed(by: bag)
 
-
+trigger.onNext(()) // 트리거 옵저버블이 넥스트 이벤트를 방출하기 전까지 대기
+trigger.onNext(()) // 정상적으로 컴플리티드 노출 -> 3번째이기 떄문에
 
 
