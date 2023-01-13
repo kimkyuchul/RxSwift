@@ -37,6 +37,15 @@ class HelloRxCocoaViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tapButton.rx.tap
+            .map { "hello, RxCocoa"}
+//            .subscribe(onNext: { [weak self] str in
+//                self?.valueLabel.text = str // CocoaTouch가 제공하는 옵셔널 스트링 형식
+//            })
+            .bind(to: valueLabel.rx.text) // RxCocoa가 자동으로 합성한 바인더 (일반 속성과 타입이 다름)
+            .disposed(by: bag)
         
     }
 }
+
+// rx.text 는 바인더 속성 UILabel.text의 속성과는 다르다.
