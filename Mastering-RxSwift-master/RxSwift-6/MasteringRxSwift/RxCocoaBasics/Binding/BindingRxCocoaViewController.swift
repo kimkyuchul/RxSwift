@@ -26,6 +26,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+//ControlProperty: 데이터를 특정 UI에 바인딩할때 사용하는 특별한 옵저버블
+
 class BindingRxCocoaViewController: UIViewController {
     
     @IBOutlet weak var valueLabel: UILabel!
@@ -48,11 +50,16 @@ class BindingRxCocoaViewController: UIViewController {
 //            })
 //            .disposed(by: disposeBag)
         
-        valueField.rx.text
+        valueField.rx.text // ControlProperty
             .bind(to: valueLabel.rx.text)
             .disposed(by: disposeBag)
-        
     }
+    
+    // 텍스트를 입력하면 텍스트필드의 선언되어 있는 텍스트 속성이 업데이트
+    // rxcocoa가 확장한 텍스트 속성이 입력한 값을 받아서 넥스트 이벤트를 방출
+    // .bind(to) 메서드는 옵저버블이 방출한 이벤트를 옵저버에게 전달
+    // 여기에서는 레이블에 합성되어 있는 텍스트 속성으로 전달 -> 이 속성의 형식은 바인더 형식, 내부적으로 넥스트 이벤트에 저장된 값을 꺼내서 레이블에 있는 기본 텍스트 속성에 저장
+    // 결과적으로 텍스트필드의 텍스트 속성과 레이블의 텍스트 속성이 바인딩 되어서 항상 같은 값을 노출
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

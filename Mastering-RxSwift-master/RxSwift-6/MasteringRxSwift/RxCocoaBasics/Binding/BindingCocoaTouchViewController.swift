@@ -33,7 +33,7 @@ class BindingCocoaTouchViewController: UIViewController {
         super.viewDidLoad()
         
         valueLabel.text = ""
-        valueField.delegate = self
+        valueField.delegate = self // VC를 텍스트필드의 델리게이트로 지정
         valueField.becomeFirstResponder()
     }
     
