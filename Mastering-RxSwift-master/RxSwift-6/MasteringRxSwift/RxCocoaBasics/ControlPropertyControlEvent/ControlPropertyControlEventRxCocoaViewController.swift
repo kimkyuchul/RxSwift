@@ -51,6 +51,37 @@ class ControlPropertyControlEventRxCocoaViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // viewDidLoad에서 실행 했기 때문에 메인 스레드에서 실행됨, 하지만 다른 스레드에서 실행되더라도 바인딩은 메인 스레드에서 실행됨 -> ControlProperty, ControlEvent는 항상 메인 스레드에서 이벤트를 전달, 그리고 바인더는 바인딩이 항상 메인 스케줄러에서 실행되는 것을 보장함. (항상 올바른 스레드에서 실행됨)
+        redSlider.rx.value
+            .map { "\(Int($0))"}
+            .bind(to: redComponentLabel.rx.text)
+            .disposed(by: bag)
         
+        greenSlider.rx.value
+            .map { "\(Int($0))"}
+            .bind(to: greenComponentLabel.rx.text)
+            .disposed(by: bag)
+        
+        blueSlider.rx.value
+            .map { "\(Int($0))"}
+            .bind(to: blueComponentLabel.rx.text)
+            .disposed(by: bag)
+        
+//        Observable.combineLatest([redSlider.rx.value, greenSlider.rx.value, blueSlider.rx.value])
+//                  .map { UIColor(red: CGFloat($0[0]) / 255, green: CGFloat($0[1]) / 255, blue: CGFloat($0[2]) / 255, alpha: 1.0) }
+//                  .bind(to: colorView.rx.backgroundColor)
+//                  .disposed(by: bag)
+        
+        resetButton.rx.tap
+            .subscribe(onNext: {[weak self] in
+                self?.colorView.backgroundColor = UIColor.black
+                
+                self?.redSlider.value = 0
+                self?.greenSlider.value = 0
+                self?.blueSlider.value = 0
+                
+                self?.updateComponentLabel()
+            })
+            .disposed(by: bag)
     }
 }
