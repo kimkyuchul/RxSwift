@@ -31,11 +31,30 @@ class RxCocoaCollectionViewViewController: UIViewController {
     
     @IBOutlet weak var listCollectionView: UICollectionView!
     
-    
+    // 옵저버블을 콜렉션뷰에 바인딩
+    let colorObservable = Observable.of(MaterialBlue.allColors)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        colorObservable.bind(to: listCollectionView.rx.items(cellIdentifier: "colorCell", cellType: ColorCollectionViewCell.self)) { index, color, cell in
+            // 재사용 큐에서 셀을 꺼내고 다시 컬렉션 뷰에 리턴하는 것이 자동으로 처리
+            cell.backgroundColor = color
+            cell.hexLabel.text = color.rgbHexString
+            
+        }
+        .disposed(by: bag)
+        
+        // 셀을 선택하면 컬러값 노출 -> modelSelected가 더 적합
+        listCollectionView.rx.modelSelected(UIColor.self)
+            .subscribe(onNext: { color in
+                print(color.rgbHexString)
+            })
+            .disposed(by: bag)
+        
+        //listCollectionView.delegate = self
+        listCollectionView.rx.setDelegate(self)
+            .disposed(by: bag)
         
     }
 }
