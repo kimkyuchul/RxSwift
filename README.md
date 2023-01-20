@@ -3,6 +3,9 @@
 > 
 
 ## Reference
+
+---
+
 - ReactiveX 공식 사이트 문서들
     - [Docs > Observable](http://reactivex.io/documentation/observable.html)
     - [Docs > Operators](http://reactivex.io/documentation/operators.html)
@@ -22,7 +25,7 @@
 | 5 | Relay | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/05-Relay.md |
 | 6 | Create Operators | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/06-Create%20Operators.md |
 | 7 | Filtering Operators | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/07-Filtering%20Operators.md |
-| 8 | Transforming Operators | https://github.com/inddoni/RxSwift/blob/main/Lecture/08-Connectable%20Operators/08_Connectable-Operators.md |
+| 8 | Transforming Operators | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/08-Transforming%20Operators.md |
 | 9 | Combining Operators | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/09-Combining%20Operators.md |
 | 10 | Conditional Operators | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/10-Conditional%20Operators.md |
 | 11 | Time-based Operators | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/11-Time-based%20Operators.md |
