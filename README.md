@@ -32,7 +32,7 @@
 | 15 | RxCocoa | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/15-RxCocoa.md |
 | 16 |  |  |
 
-🧑🏻‍🎨 **Study-Project** 
+## 🧑🏻‍🎨 Study-Project 
 
 | Project | Lecture | Source |
 | --- | --- | --- |
