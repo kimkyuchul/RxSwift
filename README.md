@@ -31,3 +31,13 @@
 | 14 | Error Handling | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/14-Error%20Handling.md |
 | 15 | RxCocoa | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/15-RxCocoa.md |
 | 16 |  |  |
+
+🧑🏻‍🎨 **Study-Project** 
+
+| Project | Lecture | Source |
+| --- | --- | --- |
+| Mastering-RxSwift-master | kxcoding Rxswift |  |
+| RxMemo | Rxswift-Memo |  |
+| RxWeather | Rxswift-Weather |  |
+|  |  |  |
+|  |  |  |
