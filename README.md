@@ -3,9 +3,6 @@
 > 
 
 ## Reference
-
----
-
 - ReactiveX 공식 사이트 문서들
     - [Docs > Observable](http://reactivex.io/documentation/observable.html)
     - [Docs > Operators](http://reactivex.io/documentation/operators.html)
