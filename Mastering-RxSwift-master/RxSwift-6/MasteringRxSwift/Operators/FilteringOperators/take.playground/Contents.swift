@@ -32,7 +32,7 @@ let disposeBag = DisposeBag()
 let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 Observable.from(numbers)
-    .take(5) // netx 이벤트에만 적용
+    .take(5) // next 이벤트에만 적용
     .subscribe{ print($0) }
     .disposed(by: disposeBag)
     
