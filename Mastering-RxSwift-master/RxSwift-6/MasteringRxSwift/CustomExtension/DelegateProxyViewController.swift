@@ -114,5 +114,5 @@ extension Reactive where Base: CLLocationManager {
 //            .map { parameters in
 //                return parameters[1] as! [Error]
 //            }
-    }
 }
+

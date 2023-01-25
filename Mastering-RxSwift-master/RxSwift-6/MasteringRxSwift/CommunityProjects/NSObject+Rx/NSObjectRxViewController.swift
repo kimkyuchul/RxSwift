@@ -24,10 +24,11 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import NSObject_Rx
 
 class NSObjectRxViewController: UIViewController {
     
-    let bag = DisposeBag()
+    //let bag = DisposeBag()
     
     let button = UIButton(type: .system)
     let label = UILabel()
@@ -37,22 +38,26 @@ class NSObjectRxViewController: UIViewController {
         
         Observable.just("Hello")
             .subscribe { print($0) }
-            .disposed(by: bag)
+            .disposed(by: rx.disposeBag)
         
         button.rx.tap
             .map { "Hello" }
             .bind(to: label.rx.text)
-            .disposed(by: bag)
+            .disposed(by: rx.disposeBag)
     }
 }
 
-class MyClass {
-    let bag = DisposeBag()
+//NSObject를 상속하지 않기 때문에 위처럼 구현 불가능
+//HasDisposeBag은 클래스 프로토콜로 선언되어 있기 때문에
+// 구조체에서 선언하는 것은 불가능.
+// 구조체는 이전처럼 DisposeBag을 직접 생성해야한다.
+class MyClass: HasDisposeBag {
+    //let bag = DisposeBag()
     
     func doSomething() {
         Observable.just("Hello")
             .subscribe { print($0) }
-            .disposed(by: bag)
+            .disposed(by: disposeBag)
     }
 }
 
