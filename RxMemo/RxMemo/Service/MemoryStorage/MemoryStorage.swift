@@ -46,7 +46,7 @@ class MemoryStorage: MemoStorageType {
         let updated = Memo(original: memo, updatedContent: content)
         
         // 배열에 저장된 원본 인스턴스를 새로운 인스턴스로 교체
-        if let  index = list.firstIndex(where: { $0 ==  memo }) {
+        if let  index = list.firstIndex(where: { $0 == memo }) {
             list.remove(at: index)
             list.insert(updated, at: index)
         }
