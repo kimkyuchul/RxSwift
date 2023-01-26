@@ -13,6 +13,7 @@
 		5AB86B2C298272F2009239F9 /* RxMemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5AB86B2A298272F2009239F9 /* RxMemo.xcdatamodeld */; };
 		5AB86B2E298272F5009239F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AB86B2D298272F5009239F9 /* Assets.xcassets */; };
 		5AB86B31298272F5009239F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AB86B2F298272F5009239F9 /* LaunchScreen.storyboard */; };
+		5AF36FDF298276DA00079EE4 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF36FDE298276DA00079EE4 /* Memo.swift */; };
 		E3448D71552987BD2368B1C4 /* Pods_RxMemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17524272DDD0EC9319413432 /* Pods_RxMemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,7 @@
 		5AB86B2D298272F5009239F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5AB86B30298272F5009239F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5AB86B32298272F5009239F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5AF36FDE298276DA00079EE4 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		F21F0E4C5E546972A79F8443 /* Pods-RxMemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxMemo.debug.xcconfig"; path = "Target Support Files/Pods-RxMemo/Pods-RxMemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F8FA0FACE3586F8107E42008 /* Pods-RxMemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxMemo.release.xcconfig"; path = "Target Support Files/Pods-RxMemo/Pods-RxMemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,6 +90,7 @@
 		5AF36FD92982755800079EE4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5AF36FDE298276DA00079EE4 /* Memo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				5AB86B22298272F2009239F9 /* AppDelegate.swift in Sources */,
 				5AB86B24298272F2009239F9 /* SceneDelegate.swift in Sources */,
 				5AB86B2C298272F2009239F9 /* RxMemo.xcdatamodeld in Sources */,
+				5AF36FDF298276DA00079EE4 /* Memo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
