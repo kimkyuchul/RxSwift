@@ -13,11 +13,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        //        window = UIWindow(windowScene: windowScene)
+        //        window?.makeKeyAndVisible()
+        
+        let storage = MemoryStorage()
+        let coordinator = SceneCoordinator(window: window!)
+        
+        let listViewModel = MemoListViewModel(title: "나의 메모", sceneCoordinator: coordinator, storage: storage)
+        let listScene = Scene.list(listViewModel)
+        
+        coordinator.transition(to: listScene, using: .root, animated: false)
+        
     }
+    
+    // 실행 순서를 다시 알아보면
+    // 1. 앱이 실행되면 storage, coordinator가 생성되고 listViewModel은 두 인스턴스를 통해 화면전환과 메모 저장을 처리
+    // 2. 이들에 대한 의존성은 뷰모델을 생성할 때 init을 통해 주입
+    // 3. 새로운 신을 생성하고 연관 값으로 뷰모델을 저장
+    // 4. SceneCoordinator에서 transition을 호출하고 파라미터로 씬을 전달 그리고 using을 root로 설정하면 첫번째 화면으로 표시 여기서 파라미터로 전달된 씬은 실제로는 열거형일 뿐이고 transition 메서드로 가보면 "  let target = scene.instantiate()" 이 코드가 실제로 씬을 만들고 있다.
+    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

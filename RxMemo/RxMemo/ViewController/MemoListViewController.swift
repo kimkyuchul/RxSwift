@@ -19,6 +19,7 @@ class MemoListViewController: UIViewController, ViewModelBindableType {
     var viewModel: MemoListViewModel!
     
     func bindViewModel() {
+        // 테이블뷰가 넘 이른 시점에 바인딩되어 네비게이션 라지 타이틀이 바로 적용이 안댐 -> 바인딩이 실행되는 시점을 늦춰야 한다.
         viewModel.title
             .drive(navigationItem.rx.title)
             .disposed(by: rx.disposeBag)
