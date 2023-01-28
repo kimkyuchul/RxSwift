@@ -33,6 +33,21 @@ class MemoListViewController: UIViewController, ViewModelBindableType {
             .disposed(by: rx.disposeBag)
         
         addButton.rx.action = viewModel.makeCreateAction()
+        
+        Observable.zip(listTableView.rx.modelSelected(Memo.self), listTableView.rx.itemSelected) //이렇게 하면 선택된 메모와 인덱스패스가 튜플 형태로 방출
+            .withUnretained(self) // self에 대한 비소유 참조와 zip 연산자가 방출하는 요소가 하나의 튜플로 방출
+        // 첫번째 요소가 self => 뷰컨, 두번째 요소는 zip 연산자가 방출한 요소 -> data
+            .do(onNext: { (vc, data) in
+                vc.listTableView.deselectRow(at: data.1, animated: true)
+            })
+        // 선택 상태를 처리했기 때문에 이후에는 indexPath가 필요없음
+        // 그래서 map 연산자로 데이터만 방출하도록 바꿈
+                .map { $1.0 }
+        // 마지막으로 전달된 메모를 detailAction과 바인딩
+                .bind(to: viewModel.detailAction.inputs)
+                .disposed(by: rx.disposeBag)
+        
+     
     }
 
     override func viewDidLoad() {
