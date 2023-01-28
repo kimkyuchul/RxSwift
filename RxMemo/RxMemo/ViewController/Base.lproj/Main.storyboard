@@ -84,10 +84,34 @@
                     <view key="view" contentMode="scaleToFill" id="hBs-kV-X1s">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="s0s-Ku-COq">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="H5N-cX-2s0"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="s0s-Ku-COq" firstAttribute="trailing" secondItem="H5N-cX-2s0" secondAttribute="trailing" id="5op-HR-H7h"/>
+                            <constraint firstItem="s0s-Ku-COq" firstAttribute="top" secondItem="hBs-kV-X1s" secondAttribute="top" id="8OD-ga-LSI"/>
+                            <constraint firstItem="s0s-Ku-COq" firstAttribute="leading" secondItem="H5N-cX-2s0" secondAttribute="leading" id="G00-bS-hPs"/>
+                            <constraint firstAttribute="bottom" secondItem="s0s-Ku-COq" secondAttribute="bottom" id="kr9-e9-2Ks"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="새 메모" id="6M2-c0-tFN"/>
+                    <navigationItem key="navigationItem" title="새 메모" id="6M2-c0-tFN">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="w6u-0w-m2P"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="kag-0m-srD"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cancelButton" destination="w6u-0w-m2P" id="8gR-3y-S3l"/>
+                        <outlet property="contentTextView" destination="s0s-Ku-COq" id="I8m-Ki-plJ"/>
+                        <outlet property="saveButton" destination="kag-0m-srD" id="Ehv-qA-JIA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MqG-3V-4Gc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -148,6 +172,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
