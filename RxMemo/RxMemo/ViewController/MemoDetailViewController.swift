@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import Action
 
 class MemoDetailViewController: UIViewController, ViewModelBindableType {
     
@@ -41,6 +44,8 @@ class MemoDetailViewController: UIViewController, ViewModelBindableType {
             }
             .disposed(by: rx.disposeBag)
         
+        editButton.rx.action = viewModel.makeEditAction()
+        
 //        var backButton = UIBarButtonItem(title: nil, style: .done, target: nil, action: nil)
 //        viewModel.title
 //            .drive(backButton.rx.title)
@@ -50,6 +55,16 @@ class MemoDetailViewController: UIViewController, ViewModelBindableType {
 //        //navigationItem.backBarButtonItem = backButton
 //        navigationItem.hidesBackButton = true
 //        navigationItem.leftBarButtonItem = backButton
+        
+        
+        shareButton.rx.tap //액션 활용하는 방식으로 구현해보기
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance) //더블탭 막기
+            .subscribe(onNext: { [weak self] _ in
+                guard let memo = self?.viewModel.memo.content else { return }
+                let vc = UIActivityViewController(activityItems: [memo], applicationActivities: nil)
+                self?.present(vc, animated: true, completion: nil)
+            })
+            .disposed(by: rx.disposeBag)
     }
 
     override func viewDidLoad() {

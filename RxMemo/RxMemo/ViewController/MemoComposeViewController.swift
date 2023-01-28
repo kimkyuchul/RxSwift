@@ -13,10 +13,16 @@ import NSObject_Rx
 
 class MemoComposeViewController: UIViewController, ViewModelBindableType {
     
+    var viewModel: MemoComposeViewModel!
+    
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var contentTextView: UITextView!
-    var viewModel: MemoComposeViewModel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+    }
     
     func bindViewModel() {
         
@@ -35,11 +41,6 @@ class MemoComposeViewController: UIViewController, ViewModelBindableType {
             .withLatestFrom(contentTextView.rx.text.orEmpty)
             .bind(to: viewModel.saveAction.inputs)
             .disposed(by: rx.disposeBag)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {

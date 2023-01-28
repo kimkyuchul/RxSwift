@@ -28,7 +28,6 @@ class MemoComposeViewModel: CommonViewModel {
         // saveAction 파라미터로 전달된 액션을 그대로 저장하지 않고 Action<String, Void>로 한 번 더 래핑
         // 액션이 전달되었다면 실제로 액션을 실행하고 화면을 닫음
         // 반대로 액션이 전달되지 않았다면 화면만 닫고 끝남
-        
         self.saveAction = Action<String, Void> { input in
             if let action = saveAction {
                 action.execute(input)

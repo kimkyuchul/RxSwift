@@ -132,7 +132,6 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Lx4-fQ-8UB"/>
                                     <barButtonItem systemItem="compose" id="Iz0-x5-SvK"/>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="YoJ-Dz-Qg0"/>
                                     <barButtonItem systemItem="action" id="dib-RH-Shy"/>
                                 </items>
                             </toolbar>
