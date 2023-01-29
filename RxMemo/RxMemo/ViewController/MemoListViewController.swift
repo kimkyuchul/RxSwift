@@ -32,8 +32,13 @@ class MemoListViewController: UIViewController, ViewModelBindableType {
             }
             .disposed(by: rx.disposeBag)
         
+        // +버튼과 액션을 바인딩
         addButton.rx.action = viewModel.makeCreateAction()
         
+        // detailAction 바인딩
+        // tableView에서 메모를 선택하면 ViewModel을 통해서 detailAction을 전달하고 선택한 셀은 선택해제
+        // 위 주석의 첫 번째 작업을 하려면 선택한 메모가 필요하고 두 번째 작업에서는 indexPath가 필요함
+        // 선택한 indexPath가 필요할 때는 itemSelected 속성을 사용하고 선택한 데이터인 메모가 필요하다면 modelSelected 메소드를 활용
         Observable.zip(listTableView.rx.modelSelected(Memo.self), listTableView.rx.itemSelected) //이렇게 하면 선택된 메모와 인덱스패스가 튜플 형태로 방출
             .withUnretained(self) // self에 대한 비소유 참조와 zip 연산자가 방출하는 요소가 하나의 튜플로 방출
         // 첫번째 요소가 self => 뷰컨, 두번째 요소는 zip 연산자가 방출한 요소 -> data
@@ -47,7 +52,12 @@ class MemoListViewController: UIViewController, ViewModelBindableType {
                 .bind(to: viewModel.detailAction.inputs)
                 .disposed(by: rx.disposeBag)
         
-     
+        // tableView에서 swipe to delete 모드를 활성화하고 삭제 버튼과 액션을 바인딩
+        //컨트롤 이벤트를 리턴. 컨트롤 이벤트는 메모를 삭제할 때마다 넥스트 이벤트 방출
+        listTableView.rx.modelDeleted(Memo.self)
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+            .bind(to: viewModel.deleteAction.inputs)
+            .disposed(by: rx.disposeBag) //스와이프 딜리트가 자동 활성
     }
 
     override func viewDidLoad() {
