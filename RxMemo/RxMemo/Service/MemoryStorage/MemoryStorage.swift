@@ -14,7 +14,8 @@ class MemoryStorage: MemoStorageType {
     // 메모를 저장할 배열
     private var list = [
         Memo(content: "hello,  kyuchul", insertDate: Date().addingTimeInterval(-10)),
-        Memo(content: "PADDED DEVICE PROTECTION", insertDate: Date().addingTimeInterval(-20))
+        Memo(content: "PADDED DEVICE PROTECTION", insertDate: Date().addingTimeInterval(-20)),
+        Memo(content: "PADDED DEVICE PROTECTION1", insertDate: Date().addingTimeInterval(-30))
     ]
     
     // 배열은 옵저버블을 통해서 외부로 공개

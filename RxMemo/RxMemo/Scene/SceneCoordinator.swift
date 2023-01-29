@@ -79,7 +79,8 @@ class SceneCoordinator: SceneCoordinatorType {
             currentVC = target.sceneViewController
         }
         
-        return subject.asCompletable()
+          return subject.asCompletable()
+//        return subject.ignoreElements().asCompletable()
     }
     
     @discardableResult

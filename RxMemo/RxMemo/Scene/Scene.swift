@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 // 앱에서 구현할 Scene 열거형(Scene)
-// Scene과 관련된 뷰모델을 연관값으로 전달
+// Scene과 관련된 뷰모델을 연관값으로 전®달
 enum Scene {
     case list(MemoListViewModel)
     case detail(MemoDetailViewModel)

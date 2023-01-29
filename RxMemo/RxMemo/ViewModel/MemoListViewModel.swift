@@ -43,7 +43,8 @@ class MemoListViewModel: CommonViewModel {
         return Action { input in
             // Action<String, Void>을 보면 입력 타입이 String으로 선언되어 있음
             // 입력값으로 메모를 업데이트하도록 구현
-            return self.storage.update(memo: memo, content: input).map { _ in }
+            return self.storage.update(memo: memo, content: input)
+                .map { _ in }
             // Action<String, Void>의 출력 타입이 Void로 선언되어 있음
             // 즉 Observable이 방출하는 형식이 Void라는 뜻
             // 방출하는 형식이 다르기 때문에 에러가 발생해서 map 연산자로 해결
