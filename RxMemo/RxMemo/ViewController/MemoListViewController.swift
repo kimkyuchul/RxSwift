@@ -18,6 +18,11 @@ class MemoListViewController: UIViewController, ViewModelBindableType {
     @IBOutlet weak var addButton: UIBarButtonItem!
     var viewModel: MemoListViewModel!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+    }
+    
     func bindViewModel() {
         // 테이블뷰가 넘 이른 시점에 바인딩되어 네비게이션 라지 타이틀이 바로 적용이 안댐 -> 바인딩이 실행되는 시점을 늦춰야 한다.
         viewModel.title
@@ -27,9 +32,10 @@ class MemoListViewController: UIViewController, ViewModelBindableType {
         // 데이터 소스를 구현하지 않아도 됨
         // 셀 deque 및 재사용을 알아서 해줌
         viewModel.memoList
-            .bind(to: listTableView.rx.items(cellIdentifier: "cell")) { row, memo, cell in
-                cell.textLabel?.text = memo.content
-            }
+//            .bind(to: listTableView.rx.items(cellIdentifier: "cell")) { row, memo, cell in
+//                cell.textLabel?.text = memo.content
+//            }
+            .bind(to: listTableView.rx.items(dataSource: viewModel.dataSource))
             .disposed(by: rx.disposeBag)
         
         // +버튼과 액션을 바인딩
@@ -58,10 +64,10 @@ class MemoListViewController: UIViewController, ViewModelBindableType {
             .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .bind(to: viewModel.deleteAction.inputs)
             .disposed(by: rx.disposeBag) //스와이프 딜리트가 자동 활성
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+        
+        
+        // 메모가 삭제될 때 row animation이 실행되도록 수정하려면
+        // delegate 메소드를 직접 구현하거나 (기존 코드를 많이 수정해야 됨)
+        // RxDataSource를 활용하면 됨 (단순한 코드로 해결 가능)
     }
 }

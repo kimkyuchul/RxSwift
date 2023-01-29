@@ -9,11 +9,37 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Action
+import RxDataSources
+
+// RxDataSources가 요구하는 방식으로 구현
+// section model을 생성한 다음에 여기에 section data와 row data를 저장하고
+// Observable이 section model 배열을 방출하도록 구현
+// 여기서는 RxDataSources가 제공하는 기본 section model 중에서 AnimatableSectionModel을 사용
+// 메모 목록은 하나의 섹션에서 표시되고 tableView에서 section header, section footer를 표시하지 않음
+// 그래서 section data는 신경 쓸 필요가 없음
+typealias MemoSectionModel = AnimatableSectionModel<Int, Memo> // section data: int, row data: memo
+
 
 class MemoListViewModel: CommonViewModel {
-    var memoList: Observable<[Memo]> {
+    var memoList: Observable<[MemoSectionModel]> {
         return storage.memoList()
     }
+    
+    // tableView 바인딩에 사용할 dataSource를 속성으로 선언
+    // 클로저 활용하여 초기화
+    let dataSource: RxTableViewSectionedAnimatedDataSource<MemoSectionModel> = {
+        let ds = RxTableViewSectionedAnimatedDataSource<MemoSectionModel>(configureCell: {
+            (dataSource, tableView, indexPath, memo) -> UITableViewCell in
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            cell.textLabel?.text = memo.content
+            return cell
+        })
+        
+        ds.canEditRowAtIndexPath = { _, _ in return true }
+        
+        return ds
+    }()
     
     // 목록 화면 상단에 + 버튼이 추가되어 있고 이 버튼을 탭하면 쓰기 화면을 modal 방식으로 표시
     // 이 버튼과 바인딩할 액션 구현
