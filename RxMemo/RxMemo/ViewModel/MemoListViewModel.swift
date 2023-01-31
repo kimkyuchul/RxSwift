@@ -53,7 +53,7 @@ class MemoListViewModel: CommonViewModel {
                     
                     // ViewModel 만들기
                     // title은 바로 문자열을 전달하면 되고 sceneCoordinator와 storage에 대한 의존성은 현재 ViewModel에 있는 속성으로 바로 주입할 수 있음
-                    let composeViewModel = MemoComposeViewModel(title: "새 메모", sceneCoordinator: self.sceneCoordinator, storage: self.storage as! MemoryStorage, saveAction: self.performUpdate(memo: memo), cancelAction: self.performCancel(memo: memo))
+                    let composeViewModel = MemoComposeViewModel(title: "새 메모", sceneCoordinator: self.sceneCoordinator, storage: self.storage as! CoreDataStorage, saveAction: self.performUpdate(memo: memo), cancelAction: self.performCancel(memo: memo))
                     
                     // compose scene을 생성하고 연관값으로 ViewModel을 저장
                     let composeScene = Scene.compose(composeViewModel)
@@ -90,7 +90,7 @@ class MemoListViewModel: CommonViewModel {
         
         return Action { memo in
             
-            let detailViewModel = MemoDetailViewModel(memo: memo, title: "메모 보기", sceneCoordinator: self.sceneCoordinator, storage: self.storage as! MemoryStorage)
+            let detailViewModel = MemoDetailViewModel(memo: memo, title: "메모 보기", sceneCoordinator: self.sceneCoordinator, storage: self.storage as! CoreDataStorage)
             
             let detailScene = Scene.detail(detailViewModel)
             

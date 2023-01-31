@@ -21,7 +21,7 @@ class MemoComposeViewModel: CommonViewModel {
     let saveAction: Action<String, Void>
     let cancelAction: CocoaAction
     
-    init(title: String, content: String? = nil, sceneCoordinator: SceneCoordinatorType, storage: MemoryStorage, saveAction: Action<String, Void>? = nil, cancelAction: CocoaAction? = nil) {
+    init(title: String, content: String? = nil, sceneCoordinator: SceneCoordinatorType, storage: CoreDataStorage, saveAction: Action<String, Void>? = nil, cancelAction: CocoaAction? = nil) {
         self.content = content
         
         // saveAction을 받는 파라미터는 옵셔널로 선언되어 있고 기본값이 nil

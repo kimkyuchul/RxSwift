@@ -30,7 +30,7 @@ class MemoDetailViewModel: CommonViewModel {
     // BehaviorSubject 사용? => 메모 보기 화면에서 편집버튼을 누른 다음 편집 하고 다시 보기 화면으로 돌아오면 편집 내용이 반영 되어야함 -> 새로운 문자열 배열을 방출해야함, 일반 옵저버블로 하면 이게 불가능
     var contents: BehaviorSubject<[String]>
     
-    init(memo: Memo, title: String, sceneCoordinator: SceneCoordinatorType, storage: MemoryStorage) {
+    init(memo: Memo, title: String, sceneCoordinator: SceneCoordinatorType, storage: CoreDataStorage) {
         self.memo = memo
         contents = BehaviorSubject<[String]>(value: [
             memo.content,
@@ -58,7 +58,7 @@ class MemoDetailViewModel: CommonViewModel {
 
     func makeEditAction() -> CocoaAction {
         return CocoaAction { _ in
-            let composeViewModel = MemoComposeViewModel(title: "메모 편집", content: self.memo.content, sceneCoordinator: self.sceneCoordinator, storage: self.storage as! MemoryStorage, saveAction: self.performUpdate(memo: self.memo))
+            let composeViewModel = MemoComposeViewModel(title: "메모 편집", content: self.memo.content, sceneCoordinator: self.sceneCoordinator, storage: self.storage as! CoreDataStorage, saveAction: self.performUpdate(memo: self.memo))
 
             let composeScene = Scene.compose(composeViewModel)
             return self.sceneCoordinator.transition(to: composeScene, using: .modal, animated: true).asObservable().map { _ in }

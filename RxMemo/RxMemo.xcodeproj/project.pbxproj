@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A80307B2987D3D6005C7909 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A80307A2987D3D6005C7909 /* CoreDataStorage.swift */; };
 		5AB86B22298272F2009239F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB86B21298272F2009239F9 /* AppDelegate.swift */; };
 		5AB86B24298272F2009239F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB86B23298272F2009239F9 /* SceneDelegate.swift */; };
 		5AB86B29298272F2009239F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AB86B27298272F2009239F9 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		17524272DDD0EC9319413432 /* Pods_RxMemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxMemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A80307A2987D3D6005C7909 /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 		5AB86B1E298272F2009239F9 /* RxMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AB86B21298272F2009239F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5AB86B23298272F2009239F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				5AB86B2A298272F2009239F9 /* RxMemo.xcdatamodeld */,
+				5A80307A2987D3D6005C7909 /* CoreDataStorage.swift */,
 			);
 			path = CoreDataStorage;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AF36FE529827A1800079EE4 /* MemoryStorage.swift in Sources */,
+				5A80307B2987D3D6005C7909 /* CoreDataStorage.swift in Sources */,
 				5AF36FF129828B2800079EE4 /* MemoComposeViewModel.swift in Sources */,
 				5AF36FFB2982978000079EE4 /* SceneCoordinator.swift in Sources */,
 				5AF36FF729828DC200079EE4 /* Scene.swift in Sources */,
