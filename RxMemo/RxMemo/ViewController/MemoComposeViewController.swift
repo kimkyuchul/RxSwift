@@ -42,8 +42,8 @@ class MemoComposeViewController: UIViewController, ViewModelBindableType {
             .disposed(by: rx.disposeBag)
         
         let willShowObservable = NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification)
-        .compactMap { $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue }
-        .map { $0.cgRectValue.height }
+            .compactMap { $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue }
+            .map { $0.cgRectValue.height }
         
         let willHideObservable = NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification)
             .map { noti -> CGFloat in 0}
@@ -51,19 +51,24 @@ class MemoComposeViewController: UIViewController, ViewModelBindableType {
         let keyboardObservable = Observable.merge(willShowObservable, willHideObservable)
             .share()
         
-        keyboardObservable
-            .withUnretained(contentTextView)
-            .subscribe(onNext: { tv, height in
-                var inset = tv.contentInset
-                inset.bottom = height
-                tv.contentInset = inset
-                
-                var scrollInset = tv.verticalScrollIndicatorInsets
-                scrollInset.bottom = height
-                tv.verticalScrollIndicatorInsets = scrollInset
-            })
-            .disposed(by: rx.disposeBag)
+//        keyboardObservable
+//            .withUnretained(contentTextView)
+//            .subscribe(onNext: { tv, height in
+//                var inset = tv.contentInset
+//                inset.bottom = height
+//                tv.contentInset = inset
+//
+//                var scrollInset = tv.verticalScrollIndicatorInsets
+//                scrollInset.bottom = height
+//                tv.verticalScrollIndicatorInsets = scrollInset
+//            })
+//            .disposed(by: rx.disposeBag)
         
+        
+        keyboardObservable
+            .toContentInset(of: contentTextView)
+            .bind(to: contentTextView.rx.contentInset)
+            .disposed(by: rx.disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,6 +83,24 @@ class MemoComposeViewController: UIViewController, ViewModelBindableType {
         
         if contentTextView.becomeFirstResponder() {
             contentTextView.resignFirstResponder()
+        }
+    }
+}
+
+extension ObservableType where Element == CGFloat {
+    func toContentInset(of textView: UITextView) -> Observable<UIEdgeInsets> {
+        return map { height in
+            var inset = textView.contentInset
+            inset.bottom = height
+            return inset
+        }
+    }
+}
+
+extension Reactive where Base: UITextView {
+    var contentInset: Binder<UIEdgeInsets> {
+        return Binder(self.base) { textView, inset in
+            textView.contentInset = inset
         }
     }
 }
