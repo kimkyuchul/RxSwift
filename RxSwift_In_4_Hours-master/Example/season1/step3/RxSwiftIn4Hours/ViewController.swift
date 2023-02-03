@@ -35,13 +35,24 @@ class ViewController: UIViewController {
         //          |
         // pw input +--> check valid --> bullet
         
-        idField.rx.text
-            .subscribe(onNext: { s in
-                print(s)
+        // MARK: - 방법 1. 기본적인 .rx를 이용한 UI test
+        idField.rx.text.orEmpty
+            //.filter { $0 != nil }
+            //.map { $0! }
+            .map(checkEmailValid)
+            .subscribe(onNext: { b in
+                self.idValidView.isHidden = b
+            })
+            .disposed(by: disposeBag)
+        
+        pwField.rx.text.orEmpty
+            .map(checkPasswordValid)
+            .subscribe(onNext: { b in
+                self.pwValidView.isHidden = b
             })
             .disposed(by: disposeBag)
     }
-
+    
     // MARK: - Logic
 
     private func checkEmailValid(_ email: String) -> Bool {
