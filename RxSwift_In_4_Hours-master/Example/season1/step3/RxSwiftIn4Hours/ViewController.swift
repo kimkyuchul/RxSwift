@@ -13,12 +13,16 @@ import UIKit
 class ViewController: UIViewController {
     var disposeBag = DisposeBag()
     
+    let idInputText: BehaviorSubject<String> = BehaviorSubject(value: "")
+    let pwInputText: BehaviorSubject<String> = BehaviorSubject(value: "")
+    
     let idValid: BehaviorSubject<Bool> = BehaviorSubject(value: false)
     let pwValid: BehaviorSubject<Bool> = BehaviorSubject(value: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bindUI()
+        bindInput()
+        bindOutput()
     }
 
     // MARK: - IBOutler
@@ -31,7 +35,7 @@ class ViewController: UIViewController {
 
     // MARK: - Bind UI
 
-    private func bindUI() {
+    private func bindInput() {
         // id input +--> check valid --> bullet
         //          |
         //          +--> button enable
@@ -72,29 +76,88 @@ class ViewController: UIViewController {
         
         // MARK: - 방법 2. .rx를 더 고급스럽게 사용해서 UI test
         // input: 아이디 입력, 비번 입력
-        let idInputOb: Observable<String> = idField.rx.text.orEmpty.asObservable()
-        let idValidOb = idInputOb.map(checkEmailValid)
+        //let idInputOb: Observable<String> = idField.rx.text.orEmpty.asObservable()
+        //let idValidOb = idInputOb.map(checkEmailValid)
         
-        let pwInputOb: Observable<String> = pwField.rx.text.orEmpty.asObservable()
-        let pwValidOb = pwInputOb.map(checkPasswordValid)
+        // MARK: - final start
+        
+        idField.rx.text.orEmpty
+            .bind(to: idInputText)
+            .disposed(by: disposeBag)
+        
+        idInputText
+            .map(checkEmailValid)
+            .bind(to: idValid)
+            .disposed(by: disposeBag)
+        
+//        idInputOb.map(checkEmailValid)
+//            .bind(to: idValid)
+//            .disposed(by: disposeBag)
+        
+        // BehaviorSubject에 값 넣어주기! (onNext 사용해서)
+//        idValidOb.subscribe(onNext: { b in
+//            self.idValid.onNext(b)
+//            })
+        //혹은 아래 방법! (이걸 더 자주씀, 위윗줄에 map 뒤에 바로 붙혀서 간결하게 사용)
+//        idValidOb.bind(to: idValid)
+        
+        
+        //let pwInputOb: Observable<String> = pwField.rx.text.orEmpty.asObservable()
+        //let pwValidOb = pwInputOb.map(checkPasswordValid)
+        
+        pwField.rx.text.orEmpty
+            .bind(to: pwInputText)
+            .disposed(by: disposeBag)
+        
+        pwInputText
+            .map(checkPasswordValid)
+            .bind(to: idValid)
+            .disposed(by: disposeBag)
+            
+//        pwInputOb.map(checkPasswordValid)
+//            .bind(to: pwValid)
+//            .disposed(by: disposeBag)
         
         // output: 불릿, 로그인버튼 enable
-        idValidOb.subscribe(onNext: { b in
-            self.idValidView.isHidden = b
-        })
-        .disposed(by: disposeBag)
+//        idValidOb.subscribe(onNext: { b in
+//            self.idValidView.isHidden = b
+//        })
+//        .disposed(by: disposeBag)
+//
+//        pwValidOb.subscribe(onNext: { b in
+//            self.pwValidView.isHidden = b
+//        })
+//        .disposed(by: disposeBag)
+//
+//        Observable.combineLatest(idValidOb, pwValidOb, resultSelector: { $0 && $1 })
+//            .subscribe(onNext: { b in
+//                self.loginButton.isEnabled = b
+//            })
+//            .disposed(by: disposeBag)
         
-        pwValidOb.subscribe(onNext: { b in
-            self.pwValidView.isHidden = b
-        })
-        .disposed(by: disposeBag)
+    }
+    
+    private func bindOutput() {
+        // output : red bullet button, login button
+        idValid
+            .subscribe(onNext: { b in
+                self.idValidView.isHidden = b
+            })
+            .disposed(by: disposeBag)
         
-        Observable.combineLatest(idValidOb, pwValidOb, resultSelector: { $0 && $1 })
+        pwValid
+            .subscribe(onNext: { b in
+                self.pwValidView.isHidden = b
+            })
+            .disposed(by: disposeBag)
+        
+        Observable.combineLatest(idValid, pwValid, resultSelector: { $0 && $1 })
             .subscribe(onNext: { b in
                 self.loginButton.isEnabled = b
             })
             .disposed(by: disposeBag)
     }
+        
     
     // MARK: - Logic
 
