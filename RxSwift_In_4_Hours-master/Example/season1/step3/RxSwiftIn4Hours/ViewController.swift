@@ -152,8 +152,8 @@ class ViewController: UIViewController {
             .disposed(by: disposeBag)
         
         Observable.combineLatest(idValid, pwValid, resultSelector: { $0 && $1 })
-            .subscribe(onNext: { b in
-                self.loginButton.isEnabled = b
+            .subscribe(onNext: { [weak self] b in
+                self?.loginButton.isEnabled = b
             })
             .disposed(by: disposeBag)
     }
@@ -168,4 +168,3 @@ class ViewController: UIViewController {
     private func checkPasswordValid(_ password: String) -> Bool {
         return password.count > 5
     }
-}

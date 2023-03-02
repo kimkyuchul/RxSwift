@@ -53,6 +53,7 @@ class ViewController: UITableViewController {
     }
 
     @IBAction func exMap2() {
+        
         Observable.from(["with", "곰튀김"])
             .map { $0.count }
             .subscribe(onNext: { str in
@@ -69,6 +70,35 @@ class ViewController: UITableViewController {
             })
             .disposed(by: disposeBag)
     }
+    
+    private func rxImageLoader(_ src: URL) -> Observable<UIImage?> {
+        return Observable.create { emmitter in
+            
+            let task = URLSession.shared.dataTask(with: src, CompletionHandler: { (data, response, error) in
+                
+                if error != nil {
+                    emmitter.onError(error)
+                    return
+                }
+                
+                guard let data = data else {
+                    emmitter.onCompleted()
+                    return
+                }
+                
+                let image = UIImage(data: data)
+                emmitter.onNext(image)
+                
+            })
+            
+            task.resume() //resume을 할 수 있는 이유는 위에서 리턴을 하기 때문에
+            
+            return Disposable.create {
+                task.cancel()
+            }
+        }
+    }
+
 
     @IBAction func exMap3() {
         Observable.just("800x600")
