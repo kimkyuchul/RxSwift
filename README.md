@@ -26,9 +26,9 @@
 | 6 | Create Operators | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/06-Create%20Operators.md |
 | 7 | Filtering Operators | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/07-Filtering%20Operators.md |
 | 8 | Transforming Operators | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/08-Transforming%20Operators.md |
-| 9 | Combining Operators | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/09-Combining%20Operators.md |
-| 10 | Conditional Operators | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/10-Conditional%20Operators.md |
-| 11 | Time-based Operators | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/11-Time-based%20Operators.md |
+| 9 | Combining Operators | https://github.com/kimkyuchul/RxSwift/tree/main/Mastering-RxSwift-master/RxSwift-6/MasteringRxSwift/Operators/CombiningOperators |
+| 10 | Conditional Operators | https://github.com/kimkyuchul/RxSwift/tree/main/Mastering-RxSwift-master/RxSwift-6/MasteringRxSwift/Operators/ConditionalOperators/amb.playground |
+| 11 | Time-based Operators | https://github.com/kimkyuchul/RxSwift/tree/main/Mastering-RxSwift-master/RxSwift-6/MasteringRxSwift/Operators/TimeBasedOperators |
 | 12 | Sharing Subscription | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/12-Sharing%20Subscription.md |
 | 13 | Scheduler | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/13-Scheduler.md |
 | 14 | Error Handling | https://github.com/kimkyuchul/RxSwift/blob/main/Lecture/14-Error%20Handling.md |
