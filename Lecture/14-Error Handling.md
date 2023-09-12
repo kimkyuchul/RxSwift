@@ -23,10 +23,8 @@
 - 새로운 구독이 시작되기 때문에 모든 작업은 처음부터 다시 진행
 - 옵저버블에서 오류가 발생하지 않으면 정상 종료되고, 에러가 발생하면 또 다시 새로운 구독을 시작
 
-Catch 연산자 예시
-
-catchAndReturn 예시
-
-retry 예시
-
-retryWhen 예시
+### [Ex) Rx Error Handling](https://github.com/kimkyuchul/RxSwift/tree/main/Mastering-RxSwift-master/RxSwift-6/MasteringRxSwift/ErrorHandling)
+- Catch 연산자 예시
+- catchAndReturn 예시
+- retry 예시
+- retryWhen 예시
