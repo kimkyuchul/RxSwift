@@ -10,6 +10,9 @@
     - [Docs > Subject](http://reactivex.io/documentation/subject.html)
     - [RxMarble Diagram](https://rxmarbles.com/)
 - kxcoding Rxswift
+- 유튜브 곰튀김 채널 RxSwift 4시간만에 끝내기 시즌0
+- 유튜브 곰튀김 채널 RxSwift 4시간만에 끝내기 시즌2
+- 실습자료 RxSwift 4시간만에 끝내기 Repository [(바로가기)](https://github.com/iamchiwon/RxSwift_In_4_Hours)
 
 ## RxSwift Content
 
@@ -39,5 +42,5 @@
 | Mastering-RxSwift-master | kxcoding Rxswift |  |
 | RxMemo | Rxswift-Memo |  |
 | RxWeather | Rxswift-Weather |  |
-|  |  |  |
+|  곰튀김 RxSwift 4시간만에 끝내기 | RxSwift_In_4_Hours |  |
 |  |  |  |
